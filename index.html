@@ -34,7 +34,7 @@
                     document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + aciertos + "%";
                 } else {
                     aciertos = (aciertos / oportunidades)*100;
-                    document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + aciertos + "%";
+                    document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + Math.floor(aciertos) + "%";
                 }
             } else {
 
