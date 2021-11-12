@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        button {
+            margin-right: 3px;
+        }
+    </style>
+
+    <script>
+        var palabras = ["cocodrilo", "ballena", "lagarto", "serpiente", "tigre", "hiena", "perro"];
+        var oportunidades = palabras.length;
+        var p = "";
+        var aciertos = 0;
+
+        function nueva() {
+            document.getElementById("ver").disabled = false;
+            if (palabras.length == 0) {
+                alert("Ya no quedan mas palabras para adivinar");
+                document.getElementById("nueva").disabled = true;
+                document.getElementById("ver").disabled = true;
+                document.getElementById("fin").disabled = true;
+
+                console.log(aciertos);
+                if (aciertos == 0) {
+                    document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + aciertos + "%";
+                } else {
+                    aciertos = (aciertos / oportunidades)*100;
+                    document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + aciertos + "%";
+                }
+            } else {
+
+                document.getElementById("parrafo").innerHTML = "";
+                document.getElementById("palabra").value = "";
+                document.getElementById("palabra").focus();
+                var n = Math.floor(Math.random() * palabras.length);
+                p = palabras[n];
+                var palabra = "";
+
+                var letras = palabras[n].split("");
+                console.log(letras);
+
+                for (i = letras.length - 1; i >= 0; i--) {
+                    let num = Math.floor(Math.random() * letras.length);
+                    console.log(letras);
+                    palabra += letras[num];
+                    letras.splice(num, 1);
+                    console.log(palabra);
+                }
+
+                console.log(palabra);
+                document.getElementById("letras").value = palabra;
+
+                palabras.splice(n, 1);
+            }
+        }
+
+        function ver() {
+            let palabra = document.getElementById("palabra").value;
+            if (palabra == p) {
+                document.getElementById("parrafo").innerHTML = "Correcto!!!";
+                aciertos++;
+            } else {
+                document.getElementById("parrafo").innerHTML = "Lo siento. Has fallado. La palabra era " + p;
+            }
+        }
+
+        function fin() {
+            document.getElementById("nueva").disabled = true;
+            document.getElementById("ver").disabled = true;
+            document.getElementById("fin").disabled = true;
+
+            if (aciertos == 0) {
+                document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + aciertos + "%";
+            } else {
+                aciertos = (aciertos / oportunidades)*100;
+                document.getElementById("parrafo").innerHTML = "Porcentaje de aciertos: " + Math.floor(aciertos) + "%";
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Adivina la palabra ociulta</h1>
+
+    Letras <input type="text" id="letras"><br><br>
+    Palabra <input type="text" id="palabra"><br><br>
+
+    <button onclick="nueva()" id="nueva">Nueva palabra</button>
+    <button onclick="ver()" id="ver" disabled>Ver solución</button>
+    <button onclick="fin()" id="fin">Finalizar juego</button>
+
+    <p id="parrafo"></p>
+</body>
+
+</html>
